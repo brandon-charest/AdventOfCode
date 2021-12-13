@@ -1,18 +1,23 @@
+from collections import defaultdict
 
-def simulate(fish, days):
-    size = len(fish)
-    d = dict()
+def simulate(data, days):
+    d = defaultdict(int)
 
-    for i in range(len(fish)):
-        d[i] = fish[i]
+    for x in data:
+        d[x] += 1
+
+    for _ in range(days):
+        fish = defaultdict(int)
+        for k,v in d.items():
+            if k == 0:
+                fish[8] += v
+                fish[6] += v
+            else:
+                fish[k-1] += v
+        d = fish
 
 
-
-    #print("Inital state: " + "".join(str(fish)))
-    for i in range(days):
-
-        print(str(i) + "/"+ str(days))
-    return len(fish)
+    return sum(d.values())
 
 
 
