@@ -22,16 +22,16 @@ def day08_2(output):
         elif size == 7:
             num.append("8")
         elif size == 5:
-            if len(s & d[2]) == 2:
+            if len(s.intersection(d[2])) == 2:
                 num.append("3")
-            elif len(s & d[4]) == 2:
+            elif len(s.intersection(d[4])) == 2:
                 num.append("2")
             else:
                 num.append("5")
         else:
-            if len(s & d[2]) == 1:
+            if len(s.intersection(d[2])) == 1:
                 num.append("6")
-            elif len(s & d[4]) == 4:
+            elif len(s.intersection(d[4])) == 4:
                 num.append("9")
             else:
                 num.append("0")
