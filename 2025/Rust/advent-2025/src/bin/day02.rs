@@ -52,6 +52,28 @@ fn valid_pattern(num: i64) -> bool {
     false
 }
 
+fn valid_pattern2(num: i64) -> bool {
+    let num_str = num.to_string();
+    let total_len = num_str.len();
+    let mid = total_len / 2;
+
+    for i in 0..mid {
+        let pattern_len = i + 1;
+
+        if total_len % pattern_len != 0 {
+            continue;
+        }
+
+        let pattern = &num_str[0..pattern_len];
+        let repeat_count = total_len / pattern_len;
+
+        if num_str == pattern.repeat(repeat_count) {
+            return true;
+        }
+    }
+    false
+}
+
 fn part1(input: &str) -> Result<i64> {
     let ranges: Vec<Range> = input
         .split(',')
@@ -71,8 +93,23 @@ fn part1(input: &str) -> Result<i64> {
     Ok(total)
 }
 
-fn part2(input: &str) -> Result<i32> {
-    Ok(0)
+fn part2(input: &str) -> Result<i64> {
+    let ranges: Vec<Range> = input
+        .split(',')
+        .map(|s| s.parse())
+        .collect::<Result<Vec<_>>>()?;
+    let mut total: i64 = 0;
+
+    for range in ranges {
+        println!("Proccessing range: {}-{}, ", range.start, range.end);
+
+        for num in range.iter() {
+            if valid_pattern2(num) {
+                total += num
+            }
+        }
+    }
+    Ok(total)
 }
 
 #[cfg(test)]
@@ -86,8 +123,8 @@ mod tests {
         assert_eq!(part1(EXAMPLE_INPUT).unwrap(), 1227775554);
     }
 
-    // #[test]
-    // fn test_part2() {
-    //     assert_eq!(part2(EXAMPLE_INPUT).unwrap(), 6);
-    // }
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(EXAMPLE_INPUT).unwrap(), 4174379265);
+    }
 }
