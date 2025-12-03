@@ -44,13 +44,10 @@ impl Range {
 fn valid_pattern(num: i64) -> bool {
     let num_str = num.to_string();
     if num_str.len() % 2 == 0 {
-        let start_idx = 0;
-        let mid_idx = num_str.len().div_ceil(2);
+        let size = num_str.len().div_ceil(2);
+        let pattern: String = num_str[0..size].to_string();
 
-        let left = &num_str[start_idx..mid_idx];
-        let right = &num_str[mid_idx..num_str.len()];
-        //println!("Left: {:#?} - Right: {:#?}", left, right);
-        return left == right;
+        return num_str == pattern.repeat(2);
     }
     false
 }
